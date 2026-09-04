@@ -1,0 +1,30 @@
+# Git files
+.git
+.gitignore
+.github
+
+# Documentation
+README.md
+LICENSE
+
+# Test files
+*_test.go
+test-obfuscation.go
+
+# Build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+casino-kiosk
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Misc
+.DS_Store

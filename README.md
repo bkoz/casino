@@ -1,108 +1,67 @@
-# Casino Kiosk CTF Challenge
+# Project Benedict: The Cipher Breeze Heist
 
-A Capture The Flag (CTF) challenge featuring Server-Side Request Forgery (SSRF) vulnerabilities in a casino kiosk web application.
-
-## Features
-
-- SSRF vulnerability with custom protocol handlers
-- Obfuscated flag embedded in the binary
-- In-memory service account token storage
-- Containerized deployment ready for Kubernetes
-
-## CI/CD Pipeline
-
-This project uses GitHub Actions to automatically:
-- Build and test the Go application
-- Build multi-architecture container images (amd64/arm64)
-- Push images to GitHub Container Registry (ghcr.io)
-- Run security scans with Trivy
-- Generate build attestations
-
-### Workflow Triggers
-
-The workflow runs on:
-- Pushes to `main` branch
-- Pull requests to `main` branch
-- Git tags starting with `v*` (e.g., `v1.0.0`)
-
-### Container Images
-
-Images are available at: `ghcr.io/bkoz/casino`
-
-Pull the latest image:
-```bash
-docker pull ghcr.io/bkoz/casino:latest
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│               🎰 CIPHER BREEZE CASINO 🎰                    │
+│                                                             │
+│              "Where Fortune Meets Cipher"                   │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
-### Image Tags
+## 📜 The Story
 
-- `latest` - Latest build from main branch
-- `main` - Main branch builds
-- `v*` - Semantic version tags
-- `pr-*` - Pull request builds
-- `main-<sha>` - Commit-specific builds
+Welcome to Vegas, baby!
 
-## Local Development
+You've been recruited for a delicate operation. Terry Benedict, the notorious casino magnate, runs the Cipher Breeze Casino on the Strip. Word on the street is he's gotten sloppy with his digital security. The casino floor has these fancy new kiosks - "Digital Concierge Services" they call them - meant to help guests view documents, make reservations, check their rewards points.
 
-### Prerequisites
+But here's the thing: these kiosks are connected to everything. And we mean *everything*.
 
-- Go 1.21 or later
-- Docker (optional, for containerized testing)
+Your job? Simple. Use one of these kiosks to access what you shouldn't. Benedict keeps something valuable locked away - a prize that proves he's not as untouchable as he thinks. The casino's vault holds more than just money; it holds secrets.
 
-### Build and Test
+The question is: can you find them?
 
-Using Make:
-```bash
-# Run tests
-make test
+## 🎯 Your Objective
 
-# Build binary
-make build
+Pull off the perfect digital heist. No ski masks, no weapons, just your wits, a web browser and the `curl` command.
 
-# Run locally (requires STOLEN_SA_TOKEN env var)
-make run
+**The Prize:** Benedict's vault contains a flag that proves you've beaten the house. Get it, and you'll have pulled off what everyone said was impossible.
 
-# Build Docker image
-make docker-build
+## 🎰 Getting Started
 
-# Run Docker container
-make docker-run
+### Finding Your Way In
+
+Using either the Openshift Console or the CLI, deploy the [casino-kiosk container image](https://ghcr.io/bkoz/casino). You should know how to do this by now. Make sure to set
+the `STOLEN_SA_TOKEN=dummy_token` environment variable during deployment. This 
+variable is not being used at this point but it is required for the container to start.
+
+The word on the street is that there is an SSRF flaw in the kiosk application which 
+could allow access to a vault which contains the flag via a secret protocol. 
+
+Somewhere in the casino's systems, there's a secure storage vault. Our sources indicate Benedict uses non-standard protocols for internal communications. Creative, but potentially exploitable.
+
+Next, using a web browser, visit the casino-kiosk URL and get started. As you visit various endpoints, clues will be given to help you advance to the next step.
+
+Every good heist starts with reconnaissance. Look around. What does the kiosk do? What features does it have? What information does it volunteer?
+
+That's all you need to get started. The rest? That's for you to figure out.
+
+## 🃏 A Final Word
+
+*"In this town, I'm the house. And house always wins."*  
+— Terry Benedict
+
+Prove him wrong.
+
+---
+
 ```
-
-Using Go directly:
-```bash
-# Run tests
-go test -v ./...
-
-# Build
-go build -o casino-kiosk .
-
-# Run (set STOLEN_SA_TOKEN first)
-export STOLEN_SA_TOKEN="test-token"
-./casino-kiosk
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│              The casino is open 24/7.                       │
+│                                                             │
+│           Your table is waiting.                            │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
-
-### Running the Container
-
-```bash
-docker run -p 8080:8080 \
-  -e STOLEN_SA_TOKEN="dummy-token" \
-  ghcr.io/bkoz/casino:latest
-```
-
-Access the application at: http://localhost:8080
-
-## Deployment
-
-The container is designed to run in Kubernetes environments. It expects:
-- `STOLEN_SA_TOKEN` environment variable
-- Port 8080 exposed
-- Non-root user execution (UID 1000)
-
-## Security
-
-This is a CTF challenge intentionally containing vulnerabilities for educational purposes. Do not use in production environments.
-
-## License
-
-See [LICENSE](LICENSE) file.

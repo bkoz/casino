@@ -42,7 +42,7 @@ variable is not being used at this point but it is required for the container to
 
 - The container listens on port 8080.
 
-The word on the street is that there is an SSRF flaw in the kiosk application which 
+The word on the street is that there is a Server-Side Request Forgery (SSRF) flaw in the kiosk application which 
 could allow access to a vault that contains the flag. 
 
 Our sources indicate Benedict's team uses non-standard protocols for internal communications. Creative, but potentially exploitable.
